@@ -1,0 +1,8 @@
+.mosaic__block {
+  border: 1px black solid;
+  border-radius: 0.3rem;
+
+  &.active {
+    border-width: 5px;
+  }
+}

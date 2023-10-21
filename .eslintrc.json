@@ -28,11 +28,12 @@
         ],
         "quotes": [
             "error",
-            "double"
+            "single"
         ],
         "semi": [
             "error",
             "always"
         ]
-    }
+    },
+    "exclude": ["*.config.js"]
 }
