@@ -1,14 +1,17 @@
 import Control from '../control';
 import MosaicBlock from '../mosaic-block/MosaicBlock';
+import PopupMenu from '../popup-menu/PopupMenu';
 import './style.scss';
 
 class MosaicField extends Control {
   blocs: MosaicBlock[];
   color: string;
-  constructor(parentNode: HTMLElement, mosaic: Array<string[]>) {
-    super(parentNode, 'div', `mosaic__field grid__${mosaic.length}`);
-    this.blocs = mosaic.flat().map((el, i) => {
+  onEnd: () => void;
+  constructor(parentNode: HTMLElement, mosaic: string[]) {
+    super(parentNode, 'div', `mosaic__field grid__${Math.sqrt(mosaic.length)}`);
+    this.blocs = mosaic.map((el, i) => {
       const block = new MosaicBlock(this.node, el);
+      block.node.style.background = 'grey';
       block.node.onclick = () => {
         block.changeColor(this.color);
         this.checkWin();
@@ -24,9 +27,8 @@ class MosaicField extends Control {
 
   checkWin() {
     if (this.blocs.every((el) => el.isRight)) {
-      console.log('win');
-    } else {
-      console.log(this.blocs);
+      const modal = new PopupMenu('Поздравляем, вы выиграли', 'Продолжить');
+      modal.onAfterBtn = () => this.onEnd()
     }
   }
  

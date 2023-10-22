@@ -1,5 +1,13 @@
 .mosaic {
   width: 100vw;
   height: 100vh;
-  display: grid;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+
+.mosaic__field.preview {
+  width: 25vw;
+  height: 25vw;
+  order: -1;
 }

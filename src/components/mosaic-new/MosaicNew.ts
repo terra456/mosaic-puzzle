@@ -6,12 +6,8 @@ import Mosaic from '../mosaic/Mosaic';
 class MosaicNew extends Mosaic {
   colorArr: string[];
   constructor(parentNode: HTMLElement, fieldSize: number) {
-    const mosaicArr = new Array(fieldSize);
-    mosaicArr.fill(new Array(fieldSize));
-    mosaicArr.forEach((el) => {
-      el.fill('transparent');
-    });
-    
+    const mosaicArr = new Array(fieldSize*fieldSize);
+    mosaicArr.fill(('transparent'));
     super(parentNode, mosaicArr);
     
     const saveBtn = new Control<HTMLButtonElement>(this.node, 'button', 'btn', 'save');
@@ -29,6 +25,7 @@ class MosaicNew extends Mosaic {
       newGamePopUp.textInput.node.defaultValue = 'newGame';
       newGamePopUp.onSaveInput = (value: string) => {
         localStorage.setItem(value, JSON.stringify(this.colorArr));
+        this.onEnd();
       };
     }
   }

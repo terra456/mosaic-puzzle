@@ -4,6 +4,9 @@ import Menu from '../components/menu/Menu';
 import MosaicField from '../components/mosaic-field/MosaicField';
 import MosaicNew from '../components/mosaic-new/MosaicNew';
 import Palette from '../components/palette/Palette';
+import ChooseGame from '../components/choose-game/ChooseGame';
+import Mosaic from '../components/mosaic/Mosaic';
+import './style.scss';
 
 class App extends Control{
   color: string;
@@ -17,6 +20,10 @@ class App extends Control{
       menu.destroy();
       this.newGame();
     }
+    menu.loadGame = () => {
+      menu.destroy();
+      this.chooseGame();
+    }
   }
 
   newGame(): void {
@@ -27,8 +34,25 @@ class App extends Control{
     newGamePopUp.textInput.node.step = '2';
     newGamePopUp.onSaveInput = (value: string) => {
       const mosaic = new MosaicNew(this.node, Number(value));
+      mosaic.onEnd = () => {
+        mosaic.destroy();
+        this.load();
+      }
     };
   }
+
+  chooseGame(): void {
+    const gamePrevius = new ChooseGame(this.node);
+    gamePrevius.selectGame = (mosaicArr: string[]) => {
+      const mosaic = new Mosaic(this.node, mosaicArr);
+      mosaic.showPreview(mosaicArr);
+      mosaic.onEnd = () => {
+        mosaic.destroy();
+        this.load();
+      }
+    }
+  }
+
 }
 
 export default App;

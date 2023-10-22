@@ -1,4 +1,5 @@
 import Control from '../control';
+import './style.scss';
 
 class Menu extends Control {
   newGame: () => void;
@@ -8,7 +9,7 @@ class Menu extends Control {
     const newBtn = new Control(this.node, 'button', 'btn', 'new');
     newBtn.node.onclick = () => this.newGame();
     const loadBtn = new Control(this.node, 'button', 'btn', 'load');
-    loadBtn.node.onclick = () => this.loadGame;
+    loadBtn.node.onclick = () => this.loadGame();
   }
 }
 
